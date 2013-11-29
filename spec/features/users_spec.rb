@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 feature 'signing up' do
+
+  let(:valid_attributes) { FactoryGirl.attributes_for(:user) }
+
   def sign_up
     visit new_user_registration_path
     fill_in :user_name, with: valid_attributes[:name]
@@ -10,7 +13,6 @@ feature 'signing up' do
     click_button 'Sign up'
   end
 
-  let(:valid_attributes) { FactoryGirl.attributes_for(:user) }
 
   scenario 'via the web form' do
     sign_up
@@ -20,8 +22,10 @@ feature 'signing up' do
   scenario 'viewing my details on the registration edit page' do
     sign_up
     visit edit_user_registration_path
-    page.should have_content(valid_attributes[:name])
-    page.should have_content(valid_attributes[:email])
+    page.should have_field(:user_name, with: valid_attributes[:name])
+    page.should have_field(:user_email, with: valid_attributes[:email])
+    #page.should have_content(valid_attributes[:name])
+    #page.should have_content(valid_attributes[:email])
   end
 
   scenario 'editing my details on the registration edit page' do

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Bucket do
-  let(:bucket) { FactoryGirl.create(:bucket, name: 'The Bucket') }
+  let!(:bucket) { FactoryGirl.create(:bucket, name: 'The Bucket') }
   context "attributes" do
     it "should have a name" do
       bucket.should respond_to(:name)

@@ -1,12 +1,16 @@
 class CommentsController < ApplicationController
   def create
     @commentable = find_commentable
-    @comment = @commentable.comments.build(params[:comment])
+    @comment = @commentable.comments.build(comment_params)
     if @comment.save
       flash[:notice] = "Added Comment"
+      redirect_to post_comment_path(@commentable, @comment)
     else
       render action: :new
     end
+  end
+
+  def show
   end
 
   private
@@ -21,7 +25,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params[:comment].permit(:body)
+    params[:comment].permit(:body, :user)
   end
 
 end

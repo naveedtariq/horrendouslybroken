@@ -34,12 +34,12 @@ describe Post do
     end
     it "should disallow invalid urls" do
       post.url = 'asdasdasd'
-      post.should be_valid
+      post.should_not be_valid
     end
   end
   context "assocications" do
     it "should know about it's bucket" do
-      post.bucket.should eq Bucket
+      post.bucket.should eq bucket
     end
     it "should know about it's comments" do
       post.comments.should eq []

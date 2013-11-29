@@ -4,10 +4,11 @@ describe Comment do
   let(:bucket) { FactoryGirl.create(:bucket, name: 'A Bucket') }
   let(:post) { FactoryGirl.create(:post, bucket: bucket) }
   let(:user) { FactoryGirl.create(:user) }
-  let(:comment) { FactoryGirl.build(:comment, post: post) }
+  let(:comment) { FactoryGirl.create(:comment, commentable: post, user: user) }
 
   context "attributes" do
     it "should have a body" do
+      c = FactoryGirl.create(:comment)
       comment.should respond_to(:body)
     end
   end

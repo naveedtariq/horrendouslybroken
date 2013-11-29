@@ -11,13 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130730192329) do
+ActiveRecord::Schema.define(version: 20131128120638) do
 
   create_table "buckets", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+  end
+
+  create_table "comments", force: true do |t|
+    t.text    "body"
+    t.integer "commentable_id"
+    t.string  "commentable_type"
+    t.integer "user_id"
   end
 
   create_table "posts", force: true do |t|
@@ -29,7 +36,7 @@ ActiveRecord::Schema.define(version: 20130730192329) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["bucket_id"], name: "index_posts_on_bucket_id"
+  add_index "posts", ["bucket_id"], name: "index_posts_on_bucket_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name",                   default: "Anonymous Coward", null: false
@@ -47,7 +54,7 @@ ActiveRecord::Schema.define(version: 20130730192329) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
